@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
+import { FilterContainer, FilterInput } from './Filter.styled';
 
 export default function Filter({ value, onChange }) {
   return (
-    <label>
+    <FilterContainer>
       Filter
-      <input type="text" value={value} onChange={onChange} />
-    </label>
+      <FilterInput type="text" value={value} onChange={onChange} />
+    </FilterContainer>
   );
 }
 

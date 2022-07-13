@@ -4,10 +4,16 @@ import ContactForm from './ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import { Box } from './Box';
+import { Container } from './App.styled';
 
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
 
@@ -58,6 +64,15 @@ export class App extends Component {
     }));
   };
 
+  renderCondition = () => {
+    const { contacts } = this.state;
+    if (contacts.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   render() {
     const { filter } = this.state;
     const addToContact = this.addToContact;
@@ -66,15 +81,24 @@ export class App extends Component {
     const deleteContact = this.deleteContact;
 
     return (
-      <Box as="main" p={3}>
-        <h2>Phonebook</h2>
-        <ContactForm onSubmit={addToContact} />
-        <h2>Contacts</h2>
-        <Filter value={filter} onChange={changeFilter} />
-        <ContactList
-          contacts={filteredContacts}
-          onDeleteContact={deleteContact}
-        />
+      <Box as="main" py={3} width="100%">
+        <Container>
+          <h2>Phonebook</h2>
+          <ContactForm onSubmit={addToContact} />
+
+          {this.renderCondition() ? (
+            <>
+              <h2>Contacts</h2>
+              <Filter value={filter} onChange={changeFilter} />
+              <ContactList
+                contacts={filteredContacts}
+                onDeleteContact={deleteContact}
+              />
+            </>
+          ) : (
+            'There is no contacts'
+          )}
+        </Container>
       </Box>
     );
   }
