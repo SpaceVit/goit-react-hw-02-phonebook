@@ -20,16 +20,12 @@ export class App extends Component {
   addToContact = ({ name, number }) => {
     const lowerCasedName = name.toLowerCase();
     const { contacts } = this.state;
-    let added = false;
-
-    contacts.forEach(el => {
-      if (el.name.toLowerCase() === lowerCasedName) {
-        alert(`${name} is already in contacts`);
-        added = true;
-      }
-    });
+    let added = contacts.find(
+      contact => contact.name.toLowerCase() === lowerCasedName
+    );
 
     if (added) {
+      alert(`${name} is already in contacts`);
       return;
     }
 
